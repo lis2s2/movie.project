@@ -22,12 +22,12 @@ public interface MovieRepository extends JpaRepository<Movie, Long> {
     Page<Object[]> getListPage(Pageable pageable); // 페이징 처리
 
     // 영화의 평점/리뷰 개수 출력
-    @Query("select m, mi from Movie m" +
-            " left outer join MovieImage mi on mi.movie = m" +
-            " where m.mno = :mno")
-//    @Query("select m, mi, avg(coalesce(r.grade, 0), count(distinct(r)) from Movie m" +
+//    @Query("select m, mi from Movie m" +
 //            " left outer join MovieImage mi on mi.movie = m" +
-//            " left outer join Review r on r.movie = m" + // 리뷰 조인
-//            " where m.mno = :mno group by mi")
+//            " where m.mno = :mno")
+    @Query("select m, mi, avg(coalesce(r.grade, 0)), count(distinct(r)) from Movie m" +
+            " left outer join MovieImage mi on mi.movie = m" +
+            " left outer join Review r on r.movie = m" + // 리뷰 조인
+            " where m.mno = :mno group by mi")
     List<Object[]> getMovieWithAll(Long mno); // 특정 영화 조회
 }
