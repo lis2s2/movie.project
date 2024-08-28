@@ -16,7 +16,7 @@ public class UploadController {
             String originalName = uploadFile.getOriginalFilename();
             String fileName = originalName.substring(originalName.lastIndexOf("\\") + 1);
 
-            log.info("fileName: " + fileName);
+            log.info("fileName: {}", fileName);
         }
     }
 }
